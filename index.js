@@ -31,7 +31,7 @@ const run = async () => {
     app.get("/car/:id", async (request, response) => {
       const id = request.params.id;
       console.log(id);
-      const query = { _id: ObjectId(id) };
+      const query = { _id: id };
       const result = await productCollection.findOne(query);
       console.log(result);
       response.send(result);
