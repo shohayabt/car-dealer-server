@@ -25,7 +25,7 @@ const run = async () => {
       const query = {};
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
-      response.send("working api");
+      response.send(result);
     });
     // POST DATA TO DATA BASE
     app.post("/cars", async (req, res) => {
