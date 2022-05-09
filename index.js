@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +25,15 @@ const run = async () => {
       const query = {};
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
+      response.send(result);
+    });
+
+    app.get("/car/:id", async (request, response) => {
+      const id = request.params.id;
+      console.log(id);
+      const query = { _id: ObjectId(id) };
+      const result = await productCollection.findOne(query);
+      console.log(result);
       response.send(result);
     });
     // POST DATA TO DATA BASE
