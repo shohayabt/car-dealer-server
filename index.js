@@ -6,8 +6,9 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 app.use(cors());
 app.use(express.json());
+
 const uri =
-  "mongodb+srv://admin:H3w!seB._w9LMcN@cluster0@cluster0.tbxop.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://shohayab:H3w!seB._w9LMcN@cluster0.grtxn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -24,7 +25,7 @@ const run = async () => {
       const query = {};
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
-      response.send(result);
+      response.send("working api");
     });
     // POST DATA TO DATA BASE
     app.post("/cars", async (req, res) => {
