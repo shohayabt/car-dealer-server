@@ -20,14 +20,14 @@ const run = async () => {
     const productCollection = client
       .db("productCollection")
       .collection("product");
-    // CREATING FRIENDS  API
+    // CREATING PRODUCT  API
     app.get("/car", async (request, response) => {
       const query = {};
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
       response.send(result);
     });
-
+    // GET SINGLE PRODUCT WITH ID
     app.get("/car/:id", async (request, response) => {
       const id = request.params.id;
       console.log(id);
