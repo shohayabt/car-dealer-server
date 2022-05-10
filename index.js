@@ -40,6 +40,25 @@ const run = async () => {
       const result = await productCollection.insertOne(cars);
       res.send(result);
     });
+    // UPDATE TOTAL
+    app.put("/products/:id", async (req, res) => {
+      const id = req.params.id;
+      const updateQuantity = req.body;
+      console.log(updateQuantity);
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          quantity: updateQuantity.updatedProductQuantity,
+        },
+      };
+      const result = await productCollection.updateOne(
+        query,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
   } finally {
   }
 };
