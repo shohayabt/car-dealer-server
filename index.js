@@ -27,12 +27,20 @@ const run = async () => {
       const result = await cursor.toArray();
       response.send(result);
     });
+    // GET PRODUCT BY EMAIL
+    app.get("/car/:email", async (request, response) => {
+      const email = request.params.email;
+      const query = { email: email };
+      const cursor = productCollection.find(query);
+      const result = await cursor.toArray();
+      response.send(result);
+    });
     // GET SINGLE PRODUCT WITH ID
-    app.get("/car/:id", async (request, response) => {
-      const id = request.params.id;
+    app.get("/products/:idName", async (req, res) => {
+      const id = req.params.idName;
       const query = { _id: ObjectId(id) };
       const result = await productCollection.findOne(query);
-      response.send(result);
+      res.send(result);
     });
     // POST DATA TO DATA BASE
     app.post("/cars", async (req, res) => {
@@ -44,7 +52,6 @@ const run = async () => {
     app.put("/products/:id", async (req, res) => {
       const id = req.params.id;
       const updateQuantity = req.body;
-      console.log(updateQuantity);
       const query = { _id: ObjectId(id) };
       const options = { upsert: true };
       const updatedDoc = {
