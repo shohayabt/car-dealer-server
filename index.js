@@ -30,10 +30,8 @@ const run = async () => {
     // GET SINGLE PRODUCT WITH ID
     app.get("/car/:id", async (request, response) => {
       const id = request.params.id;
-      console.log(id);
-      const query = { _id: id };
+      const query = { _id: ObjectId(id) };
       const result = await productCollection.findOne(query);
-      console.log(result);
       response.send(result);
     });
     // POST DATA TO DATA BASE
