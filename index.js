@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
-require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+require("dotenv").config();
 
 const uri = `mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASS}@cluster0.grtxn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -20,6 +21,14 @@ const run = async () => {
     const productCollection = client
       .db("productCollection")
       .collection("product");
+    // LOGIN JWT TOKEN
+    app.post("/authToken", async (req, res) => {
+      const user = req.body;
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {
+        expiresIn: "30d",
+      });
+      res.send(accessToken);
+    });
     // CREATING PRODUCT  API
     app.get("/car", async (request, response) => {
       const query = {};
